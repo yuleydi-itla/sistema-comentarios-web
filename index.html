@@ -30,7 +30,6 @@
       overflow-x: hidden;
     }
 
-    /* Fondo con textura sutil */
     body::before {
       content: '';
       position: fixed;
@@ -42,7 +41,6 @@
       z-index: 0;
     }
 
-    /* ─── NAVBAR ─── */
     .navbar-custom {
       background: rgba(13,13,13,0.95);
       backdrop-filter: blur(12px);
@@ -69,7 +67,6 @@
       text-transform: uppercase;
     }
 
-    /* ─── HERO ─── */
     .hero {
       position: relative;
       z-index: 1;
@@ -121,7 +118,6 @@
       animation: fadeUp 0.8s 0.4s ease both;
     }
 
-    /* ─── FORMULARIO ─── */
     .form-section {
       position: relative;
       z-index: 1;
@@ -197,7 +193,6 @@
       min-height: 120px;
     }
 
-    /* Avatar preview en el formulario */
     .avatar-row {
       display: flex;
       align-items: center;
@@ -243,7 +238,6 @@
       color: var(--dark);
     }
 
-    /* ─── SECCIÓN DE COMENTARIOS ─── */
     .comments-section {
       position: relative;
       z-index: 1;
@@ -270,7 +264,6 @@
       color: var(--text-primary);
     }
 
-    /* ─── TARJETA DE COMENTARIO ─── */
     .comment-card {
       background: var(--dark-2);
       border: 1px solid var(--border);
@@ -343,7 +336,6 @@
       margin: 0.8rem 0;
     }
 
-    /* ─── FOOTER ─── */
     .footer {
       position: relative;
       z-index: 1;
@@ -363,13 +355,11 @@
       color: var(--gold);
     }
 
-    /* ─── ANIMACIONES ─── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ─── RESPONSIVE ─── */
     @media (max-width: 576px) {
       .form-card { padding: 1.5rem; }
       .hero { padding: 4rem 0 2.5rem; }
@@ -378,7 +368,6 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <nav class="navbar-custom">
     <div class="container d-flex align-items-center justify-content-between">
       <div>
@@ -391,17 +380,15 @@
     </div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="container">
       <div class="hero-label">Comparte tu opinión</div>
       <h1 class="hero-title">Tu opinión <em>es importante.</em><br>Déjanos conocerla.</h1>
-      <p class="hero-subtitle">Un espacio para expresarte con respeto. Escribe, publica y lee lo que otros tienen que decir.</p>
+      <p class="hero-subtitle">Un lugar sencillo y honesto para compartir lo que piensas. Escribe, publica y lee lo que otros tienen que decir.</p>
       <div class="divider-gold"></div>
     </div>
   </section>
 
-  <!-- FORMULARIO -->
   <section class="form-section">
     <div class="container">
       <div class="row justify-content-center">
@@ -446,7 +433,6 @@
     </div>
   </section>
 
-  <!-- COMENTARIOS PUBLICADOS -->
   <section class="comments-section">
     <div class="container">
       <div class="row justify-content-center">
@@ -465,7 +451,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <p class="footer-text">
@@ -478,12 +463,66 @@
   <script>
     const nombreInput = document.getElementById('nombre');
     const avatarPreview = document.getElementById('avatarPreview');
+    const form = document.getElementById('commentForm');
 
     nombreInput.addEventListener('input', function() {
       const val = this.value.trim();
       avatarPreview.textContent = val.length > 0 ? val.charAt(0).toUpperCase() : '?';
     });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value.trim();
+      const comentario = document.getElementById('comentario').value.trim();
+      const mensajeExistente = document.getElementById('mensajeEstado');
+
+      if (mensajeExistente) mensajeExistente.remove();
+
+      const mensaje = document.createElement('div');
+      mensaje.id = 'mensajeEstado';
+      mensaje.style.marginTop = '1rem';
+      mensaje.style.padding = '0.75rem 1rem';
+      mensaje.style.borderRadius = '2px';
+      mensaje.style.fontSize = '0.85rem';
+      mensaje.style.letterSpacing = '0.05em';
+
+      if (nombre === '' && comentario === '') {
+        mensaje.style.border = '1px solid rgba(201,68,68,0.4)';
+        mensaje.style.color = '#e07070';
+        mensaje.style.background = 'rgba(201,68,68,0.08)';
+        mensaje.textContent = 'Por favor escribe tu nombre y tu comentario antes de publicar.';
+        form.appendChild(mensaje);
+        return;
+      }
+
+      if (nombre === '') {
+        mensaje.style.border = '1px solid rgba(201,68,68,0.4)';
+        mensaje.style.color = '#e07070';
+        mensaje.style.background = 'rgba(201,68,68,0.08)';
+        mensaje.textContent = 'Por favor escribe tu nombre antes de publicar.';
+        form.appendChild(mensaje);
+        return;
+      }
+
+      if (comentario === '') {
+        mensaje.style.border = '1px solid rgba(201,68,68,0.4)';
+        mensaje.style.color = '#e07070';
+        mensaje.style.background = 'rgba(201,68,68,0.08)';
+        mensaje.textContent = 'Por favor escribe un comentario antes de publicar.';
+        form.appendChild(mensaje);
+        return;
+      }
+
+      mensaje.style.border = '1px solid rgba(201,168,76,0.4)';
+      mensaje.style.color = '#c9a84c';
+      mensaje.style.background = 'rgba(201,168,76,0.08)';
+      mensaje.textContent = '¡Tu comentario fue publicado con éxito!';
+      form.appendChild(mensaje);
+      form.submit();
+    });
   </script>
 
 </body>
 </html>
+
