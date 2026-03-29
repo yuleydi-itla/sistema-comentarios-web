@@ -4,7 +4,7 @@ require_once 'conexion.php';
 header('Content-Type: application/json');
 
 try {
-    // Select con orden descendente por fecha (Misión 2)
+    // Select con orden descendente por fecha
     $stmt = $pdo->query("SELECT * FROM comentarios ORDER BY fecha DESC");
     $comentarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
