@@ -1,5 +1,5 @@
 <?php
-// El puente: Crea la conexión SQL (con SQLite).
+// conexion
 
 $db_file = __DIR__ . '/../db/database.sqlite';
 

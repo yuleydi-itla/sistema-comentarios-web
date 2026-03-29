@@ -3,7 +3,7 @@ require_once 'conexion.php';
 
 header('Content-Type: application/json');
 
-// Permitir recibir JSON o datos form-urlencoded
+// recibir json
 $input = json_decode(file_get_contents('php://input'), true);
 $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : ($input['nombre'] ?? '');
 $comentario = isset($_POST['comentario']) ? $_POST['comentario'] : ($input['comentario'] ?? '');
@@ -18,7 +18,7 @@ if (empty($nombre) || empty($comentario)) {
 }
 
 try {
-    // Uso de prepared statements (Misión 1)
+    //prepared statements
     $stmt = $pdo->prepare("INSERT INTO comentarios (nombre, comentario) VALUES (:nombre, :comentario)");
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
     $stmt->bindParam(':comentario', $comentario, PDO::PARAM_STR);
